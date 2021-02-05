@@ -1,8 +1,8 @@
 /*
  * @Author: Jindai Kirin 
  * @Date: 2018-11-02 16:51:03 
- * @Last Modified by: Jindai Kirin
- * @Last Modified time: 2018-11-03 11:01:17
+ * @Last Modified by: polezhang
+ * @Last Modified time: 2020-11-10 11:01:17
  */
 
 const Axios = require('axios');
@@ -55,6 +55,18 @@ class UoocAPI {
 			show: ''
 		});
 	}
+	// 有三级子节点时用
+	getUnitLearnSub(cid, chapter_id, section_id, subsection_id) {
+		return this.callAPI('getUnitLearn', {
+			cid,
+			chapter_id,
+			section_id,
+			catalog_id: subsection_id,
+			subsection_id,
+			hidemsg_: true,
+			show: ''
+		});
+	}
 
 	markVideoLearn(cid, chapter_id, section_id, resource_id, video_length, video_pos) {
 		return this.callAPI_POST('markVideoLearn', {
@@ -65,6 +77,22 @@ class UoocAPI {
 			source: 1,
 			network: 1,
 			subsection_id: 0,
+			video_length,
+			video_pos,
+			hidemsg_: true
+		});
+	}
+	// 有三级子节点时用
+	markVideoLearnSub(cid, chapter_id, section_id,subsection_id, resource_id, video_length, video_pos) {
+		return this.callAPI_POST('markVideoLearn', {
+			cid,
+			chapter_id,
+			section_id,
+			subsection_id,
+			resource_id,
+			source: 1,
+			network: 1,
+			// subsection_id: 0,
 			video_length,
 			video_pos,
 			hidemsg_: true
